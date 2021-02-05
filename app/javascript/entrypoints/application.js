@@ -1,16 +1,10 @@
-// This file is automatically compiled by Webpack, along with any other files
+// This file is automatically compiled by Vite Rails, along with any other files
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
+import 'vite/dynamic-import-polyfill'
 
-import '../styles/application.scss'
-
-// Uncomment to copy all static images under ../images to the output folder and reference
-// them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
-// or the `imagePath` JavaScript helper below.
-//
-require.context('../images', true)
-// const imagePath = (name) => images(name, true)
+import '~/styles/application.css'
 
 import Vue from 'vue'
 import VueMeta from 'vue-meta'
@@ -32,6 +26,8 @@ Vue.prototype.$routes = Routes
 
 const el = document.getElementById('app')
 
+const pages = import.meta.glob('../Pages/**/*.vue')
+
 new Vue({
   metaInfo: {
     titleTemplate: (title) => title ? `${title} - PingCRM` : 'PingCRM',
@@ -39,7 +35,11 @@ new Vue({
   render: h => h(app, {
     props: {
       initialPage: JSON.parse(el.dataset.page),
-      resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default),
+      resolveComponent: name => {
+        const importPage = pages[`../Pages/${name}.vue`]
+        if (!importPage) throw new Error(`Unknown page ${name}. Is it located under Pages with a .vue extension?`)
+        return importPage().then(module => module.default)
+      },
       transformProps: props => {
         if (Vue.matomo.enabled)
           // Wait a bit to allow VueMeta to update the document.title
