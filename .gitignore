@@ -38,3 +38,11 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Vite on Rails
+/public/vite
+/public/vite-dev
+/public/vite-test
+node_modules
+*.local
+.DS_Store

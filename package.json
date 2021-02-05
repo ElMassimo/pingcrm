@@ -2,31 +2,36 @@
   "name": "pingcrm",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.vue ."
+    "lint": "eslint --ext js,vue,ts,md --format node_modules/eslint-formatter-friendly app/javascript"
   },
   "dependencies": {
     "@inertiajs/inertia": "^0.8.0",
     "@inertiajs/inertia-vue": "^0.5.0",
     "@inertiajs/progress": "^0.2.4",
     "@popperjs/core": "^2.5.3",
-    "@rails/webpacker": "^5.2.1",
-    "autoprefixer": "^9",
     "lodash": "^4.17.20",
     "portal-vue": "^2.1.7",
-    "postcss": "^7",
     "tailwindcss": "2.0.1-compat",
     "timeago.js": "^4.0.2",
     "vue": "^2.6.12",
-    "vue-loader": "^15.9.3",
-    "vue-meta": "^2.4.0",
-    "vue-template-compiler": "^2.6.12"
+    "vue-meta": "^2.4.0"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "css-loader": "^5.0.0",
-    "eslint": "^7.11.0",
+    "@antfu/eslint-config": "^0.4.3",
+    "autoprefixer": "^10",
+    "eslint": "^7.18.0",
+    "eslint-formatter-friendly": "^7.0.0",
     "eslint-plugin-vue": "^7.1.0",
-    "webpack-dev-server": "^3.11.0"
+    "postcss": "^8",
+    "postcss-nested": "^5.0.3",
+    "sass": "^1.32.6",
+    "vite": "^2.0.0-beta.64",
+    "vite-plugin-ruby": "^1.0.6",
+    "vite-plugin-vue2": "^1.2.0"
+  },
+  "resolutions": {
+    "autoprefixer": "10.2.4",
+    "postcss": "8.2.4"
   }
 }

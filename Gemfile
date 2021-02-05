@@ -12,9 +12,6 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications (https://puma.io)
 gem 'puma', '~> 5.0'
 
-# Use webpack to manage app-like JavaScript modules in Rails (https://github.com/rails/webpacker)
-gem 'webpacker', '~> 5.0'
-
 # Create JSON structures via a Builder-style DSL (https://github.com/rails/jbuilder)
 gem 'jbuilder', '~> 2.7'
 
@@ -92,3 +89,4 @@ gem 'oj'
 
 # Simple authorization solution for Rails. (https://github.com/CanCanCommunity/cancancan)
 gem 'cancancan'
+gem 'vite_rails'
