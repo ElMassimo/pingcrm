@@ -146,11 +146,11 @@
 </template>
 
 <script>
-import Icon from '@/Shared/Icon'
-import Layout from '@/Layouts/Main'
+import Icon from '@/Shared/Icon.vue'
+import Layout from '@/Layouts/Main.vue'
 import mapValues from 'lodash/mapValues'
 import pickBy from 'lodash/pickBy'
-import SearchFilter from '@/Shared/SearchFilter'
+import SearchFilter from '@/Shared/SearchFilter.vue'
 import throttle from 'lodash/throttle'
 
 export default {
