@@ -3,7 +3,7 @@
     <h1 class="mb-8 font-bold text-3xl">
       <inertia-link
         class="text-indigo-400 hover:text-indigo-600"
-        :href="$routes.contacts()"
+        :href="ContactsRequests.pathFor('list')"
       >
         Contacts
       </inertia-link>
@@ -13,7 +13,7 @@
       <contact-form
         v-model="form"
         :organizations="organizations"
-        @submit="form.post($routes.contacts())"
+        @submit="ContactsRequests.create({ form })"
       >
         <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">
           <loading-button
@@ -34,8 +34,13 @@ import Layout from '@/Layouts/Main.vue'
 import LoadingButton from '@/Shared/LoadingButton.vue'
 import ContactForm from './Form.vue'
 
+import ContactsRequests from '@/requests/ContactsRequests'
+
 export default {
   metaInfo: { title: 'Create Contact' },
+  constants: {
+    ContactsRequests,
+  },
   components: {
     LoadingButton,
     ContactForm,

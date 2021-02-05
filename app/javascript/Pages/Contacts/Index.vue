@@ -29,7 +29,7 @@
       </search-filter>
       <inertia-link
         class="btn-indigo"
-        :href="$routes.new_contact()"
+        :href="ContactsRequests.pathFor('new')"
       >
         <span>Create</span>
         <span class="hidden md:inline">Contact</span>
@@ -65,7 +65,7 @@
             <td class="border-t">
               <inertia-link
                 class="px-6 py-4 flex items-center focus:text-indigo-500"
-                :href="$routes.edit_contact(contact.id)"
+                :href="pathToEdit(contact)"
                 aria-label="Edit"
               >
                 {{ contact.name }}
@@ -79,7 +79,7 @@
             <td class="border-t">
               <inertia-link
                 class="px-6 py-4 flex items-center"
-                :href="$routes.edit_contact(contact.id)"
+                :href="pathToEdit(contact)"
                 tabindex="-1"
                 aria-label="Edit"
               >
@@ -91,7 +91,7 @@
             <td class="border-t">
               <inertia-link
                 class="px-6 py-4 flex items-center"
-                :href="$routes.edit_contact(contact.id)"
+                :href="pathToEdit(contact)"
                 tabindex="-1"
                 aria-label="Edit"
               >
@@ -101,7 +101,7 @@
             <td class="border-t">
               <inertia-link
                 class="px-6 py-4 flex items-center"
-                :href="$routes.edit_contact(contact.id)"
+                :href="pathToEdit(contact)"
                 tabindex="-1"
                 aria-label="Edit"
               >
@@ -111,7 +111,7 @@
             <td class="border-t w-px">
               <inertia-link
                 class="px-4 flex items-center"
-                :href="$routes.edit_contact(contact.id)"
+                :href="pathToEdit(contact)"
                 tabindex="-1"
                 aria-label="Edit"
               >
@@ -146,8 +146,11 @@ import pickBy from 'lodash/pickBy'
 import SearchFilter from '@/Shared/SearchFilter.vue'
 import throttle from 'lodash/throttle'
 
+import ContactsRequests from '@/requests/ContactsRequests'
+
 export default {
   metaInfo: { title: 'Contacts' },
+  constants: { ContactsRequests },
   components: {
     Icon,
     Pagination,
@@ -175,24 +178,22 @@ export default {
   watch: {
     form: {
       handler: throttle(function() {
-        let query = pickBy(this.form)
-        this.$inertia.get(
-          this.$routes.contacts(
-            Object.keys(query).length ? query : { remember: 'forget' },
-          ),
-          {},
-          {
-            preserveState: true,
-            preserveScroll: true,
-            replace: true,
-            only: ['contacts'],
-          },
-        )
+        const query = pickBy(this.form)
+        ContactsRequests.list({
+          query: Object.keys(query).length ? query : { remember: 'forget' },
+          preserveState: true,
+          preserveScroll: true,
+          replace: true,
+          only: ['contacts'],
+        })
       }, 150),
       deep: true,
     },
   },
   methods: {
+    pathToEdit (contact) {
+      return ContactsRequests.pathFor('edit', contact)
+    },
     reset() {
       this.form = mapValues(this.form, () => null)
     },

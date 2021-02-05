@@ -70,7 +70,7 @@
             <td class="border-t">
               <inertia-link
                 class="px-6 py-4 flex items-center focus:text-indigo-500"
-                :href="$routes.edit_organization(organization.id)"
+                :href="pathToEdit(organization)"
               >
                 {{ organization.name }}
                 <icon
@@ -83,7 +83,7 @@
             <td class="border-t">
               <inertia-link
                 class="px-6 py-4 flex items-center"
-                :href="$routes.edit_organization(organization.id)"
+                :href="pathToEdit(organization)"
                 tabindex="-1"
                 aria-label="Edit"
               >
@@ -93,7 +93,7 @@
             <td class="border-t">
               <inertia-link
                 class="px-6 py-4 flex items-center"
-                :href="$routes.edit_organization(organization.id)"
+                :href="pathToEdit(organization)"
                 tabindex="-1"
                 aria-label="Edit"
               >
@@ -103,7 +103,7 @@
             <td class="border-t w-px">
               <inertia-link
                 class="px-4 flex items-center"
-                :href="$routes.edit_organization(organization.id)"
+                :href="pathToEdit(organization)"
                 tabindex="-1"
                 aria-label="Edit"
               >
@@ -139,6 +139,7 @@ import SearchFilter from '@/Shared/SearchFilter.vue'
 import Modal from '@/Shared/Modal.vue'
 import NewOrganization from '@/Pages/Organizations/_New.vue'
 import throttle from 'lodash/throttle'
+import OrganizationsRequests from '@/requests/OrganizationsRequests'
 
 export default {
   metaInfo: { title: 'Organizations' },
@@ -172,24 +173,22 @@ export default {
   watch: {
     form: {
       handler: throttle(function() {
-        let query = pickBy(this.form)
-        this.$inertia.get(
-          this.$routes.organizations(
-            Object.keys(query).length ? query : { remember: 'forget' },
-          ),
-          {},
-          {
-            preserveState: true,
-            preserveScroll: true,
-            replace: true,
-            only: ['organizations'],
-          },
-        )
+        const query = pickBy(this.form)
+        OrganizationsRequests.list({
+          query: Object.keys(query).length ? query : { remember: 'forget' },
+          preserveState: true,
+          preserveScroll: true,
+          replace: true,
+          only: ['organizations'],
+        })
       }, 150),
       deep: true,
     },
   },
   methods: {
+    pathToEdit (organization) {
+      return OrganizationsRequests.pathFor('edit', organization)
+    },
     reset() {
       this.form = mapValues(this.form, () => null)
     },

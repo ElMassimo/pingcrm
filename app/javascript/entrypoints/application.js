@@ -16,13 +16,13 @@ Vue.use(PortalVue)
 import MatomoTracker from '@/utils/matomo-tracker'
 Vue.use(MatomoTracker)
 
+import ConstantsMixin from '@/utils/ConstantsMixin'
+Vue.mixin(ConstantsMixin)
+
 import { app, plugin } from '@inertiajs/inertia-vue'
 import { InertiaProgress as progress } from '@inertiajs/progress'
 Vue.use(plugin)
 progress.init()
-
-import Routes from '@/utils/routes.js'
-Vue.prototype.$routes = Routes
 
 const el = document.getElementById('app')
 

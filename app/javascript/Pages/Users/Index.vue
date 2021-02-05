@@ -47,7 +47,7 @@
       <inertia-link
         v-if="can.create_user"
         class="btn-indigo"
-        :href="$routes.new_user()"
+        :href="UsersRequests.pathFor('new')"
       >
         <span>Create</span>
         <span class="hidden md:inline">User</span>
@@ -80,7 +80,7 @@
             <td class="border-t">
               <inertia-link
                 class="px-6 py-4 flex items-center focus:text-indigo-500"
-                :href="$routes.edit_user(user.id)"
+                :href="pathToEdit(user)"
                 aria-label="Edit"
               >
                 <img
@@ -100,7 +100,7 @@
             <td class="border-t">
               <inertia-link
                 class="px-6 py-4 flex items-center"
-                :href="$routes.edit_user(user.id)"
+                :href="pathToEdit(user)"
                 tabindex="-1"
                 aria-label="Edit"
               >
@@ -110,7 +110,7 @@
             <td class="border-t">
               <inertia-link
                 class="px-6 py-4 flex items-center"
-                :href="$routes.edit_user(user.id)"
+                :href="pathToEdit(user)"
                 tabindex="-1"
                 aria-label="Edit"
               >
@@ -120,7 +120,7 @@
             <td class="border-t w-px">
               <inertia-link
                 class="px-4 flex items-center"
-                :href="$routes.edit_user(user.id)"
+                :href="pathToEdit(user)"
                 tabindex="-1"
                 aria-label="Edit"
               >
@@ -152,9 +152,13 @@ import mapValues from 'lodash/mapValues'
 import pickBy from 'lodash/pickBy'
 import SearchFilter from '@/Shared/SearchFilter.vue'
 import throttle from 'lodash/throttle'
+import UsersRequests from '@/requests/UsersRequests'
 
 export default {
   metaInfo: { title: 'Users' },
+  constants: {
+    UsersRequests,
+  },
   components: {
     Icon,
     SearchFilter,
@@ -186,24 +190,22 @@ export default {
   watch: {
     form: {
       handler: throttle(function() {
-        let query = pickBy(this.form)
-        this.$inertia.get(
-          this.$routes.users(
-            Object.keys(query).length ? query : { remember: 'forget' },
-          ),
-          {},
-          {
-            preserveState: true,
-            preserveScroll: true,
-            replace: true,
-            only: ['users'],
-          },
-        )
+        const query = pickBy(this.form)
+        UsersRequests.list({
+          query: Object.keys(query).length ? query : { remember: 'forget' },
+          preserveState: true,
+          preserveScroll: true,
+          replace: true,
+          only: ['users'],
+        })
       }, 150),
       deep: true,
     },
   },
   methods: {
+    pathToEdit (user) {
+      return UsersRequests.pathFor('edit', user)
+    },
     reset() {
       this.form = mapValues(this.form, () => null)
     },

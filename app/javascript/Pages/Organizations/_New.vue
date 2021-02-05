@@ -2,7 +2,7 @@
   <organization-form
     v-model="form"
     class="bg-white max-w-3xl"
-    @submit="submit"
+    @submit="submit(form)"
   >
     <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">
       <loading-button
@@ -19,6 +19,7 @@
 <script>
 import LoadingButton from '@/Shared/LoadingButton.vue'
 import OrganizationForm from './Form.vue'
+import OrganizationsRequests from '@/requests/OrganizationsRequests'
 
 export default {
   components: {
@@ -34,11 +35,11 @@ export default {
     }
   },
   methods: {
-    submit() {
-      this.form.post(this.$routes.organizations(), {
+    submit(form) {
+      OrganizationsRequests.create({ form,
         onSuccess: () => {
           this.$emit('success')
-          this.form.reset('organization')
+          form.reset('organization')
         },
       })
     },

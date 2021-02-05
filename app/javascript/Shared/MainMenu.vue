@@ -3,7 +3,7 @@
     <div class="mb-4">
       <inertia-link
         class="flex items-center group py-3"
-        :href="$routes.root()"
+        :href="routes.root"
         role="navigation"
         aria-label="Dashboard"
       >
@@ -20,7 +20,7 @@
     <div class="mb-4">
       <inertia-link
         class="flex items-center group py-3"
-        :href="$routes.organizations()"
+        :href="routes.organizations"
         role="navigation"
         aria-label="Organizations"
       >
@@ -37,7 +37,7 @@
     <div class="mb-4">
       <inertia-link
         class="flex items-center group py-3"
-        :href="$routes.contacts()"
+        :href="routes.contacts"
         role="navigation"
         aria-label="Contacts"
       >
@@ -54,7 +54,7 @@
     <div class="mb-4">
       <inertia-link
         class="flex items-center group py-3"
-        :href="$routes.reports()"
+        :href="routes.reports"
         role="navigation"
         aria-label="Reports"
       >
@@ -74,17 +74,30 @@
 <script>
 import Icon from '@/Shared/Icon.vue'
 
+import ContactsRequests from '@/requests/ContactsRequests'
+import DashboardRequests from '@/requests/DashboardRequests'
+import OrganizationsRequests from '@/requests/OrganizationsRequests'
+import ReportsRequests from '@/requests/ReportsRequests'
+
 export default {
   components: {
     Icon,
   },
+  computed: {
+    routes () {
+      return {
+        root: DashboardRequests.pathFor('list'),
+        organizations: OrganizationsRequests.pathFor('list'),
+        contacts: ContactsRequests.pathFor('list'),
+        reports: ReportsRequests.pathFor('list'),
+      }
+    },
+  },
   methods: {
     isUrl(...urls) {
-      let currentUrl = this.$page.url.substr(1)
+      const currentUrl = this.$page.url.substr(1)
 
-      if (urls[0] === '') {
-        return currentUrl === ''
-      }
+      if (urls[0] === '') return currentUrl === ''
 
       return urls.filter(url => currentUrl.startsWith(url)).length
     },

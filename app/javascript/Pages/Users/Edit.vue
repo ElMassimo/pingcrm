@@ -4,7 +4,7 @@
       <h1 class="font-bold text-3xl">
         <inertia-link
           class="text-indigo-500 hover:text-indigo-600"
-          :href="$routes.users()"
+          :href="UsersRequests.pathFor('list')"
         >
           Users
         </inertia-link>
@@ -28,7 +28,7 @@
     <div class="bg-white rounded shadow overflow-hidden max-w-3xl">
       <user-form
         v-model="form"
-        @submit="submit"
+        @submit="submit(form)"
       >
         <div
           v-if="can.edit_user"
@@ -61,12 +61,16 @@ import Layout from '@/Layouts/Main.vue'
 import LoadingButton from '@/Shared/LoadingButton.vue'
 import UserForm from './Form.vue'
 import TrashedMessage from '@/Shared/TrashedMessage.vue'
+import UsersRequests from '@/requests/UsersRequests'
 
 export default {
   metaInfo() {
     return {
       title: `${this.form.user.first_name} ${this.form.user.last_name}`,
     }
+  },
+  constants: {
+    UsersRequests,
   },
   components: {
     LoadingButton,
@@ -96,19 +100,19 @@ export default {
     }
   },
   methods: {
-    submit() {
-      this.form.put(this.$routes.user(this.user.id), {
-        onSuccess: () => this.form.reset('password', 'photo'),
+    submit(form) {
+      UsersRequests.update({ params: this.user, form,
+        onSuccess: () => form.reset('password', 'photo'),
       })
     },
     destroy() {
       if (confirm('Are you sure you want to delete this user?')) {
-        this.$inertia.delete(this.$routes.user(this.user.id))
+        UsersRequests.destroy(this.user)
       }
     },
     restore() {
       if (confirm('Are you sure you want to restore this user?')) {
-        this.$inertia.put(this.$routes.restore_user(this.user.id))
+        UsersRequests.restore(this.user)
       }
     },
   },

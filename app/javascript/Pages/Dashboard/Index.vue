@@ -5,18 +5,17 @@
     </h1>
     <p class="mb-8 leading-normal">
       Hey there! Welcome to Ping CRM, a demo app designed to help illustrate how
-      <a
-        class="text-indigo-800 underline hover:text-orange-600 font-bold"
-        href="https://inertiajs.com"
-      >
-        Inertia.js
-      </a> works with
-      <a
-        href="https://rubyonrails.org/"
-        class="text-indigo-800 underline hover:text-orange-600 font-bold"
-      >
-        Ruby on Rails
-      </a>.
+      <ExternalLink href="https://inertiajs.com">Inertia.js</ExternalLink>
+      works with
+      <ExternalLink href="https://rubyonrails.org/">Ruby on Rails</ExternalLink>.
+    </p>
+    <p class="mb-8 leading-normal">
+      This demo is running on
+      <ExternalLink href="https://vite-rails.netlify.app/">Vite ⚡️ Rails</ExternalLink>
+      instead of Webpacker, which provides a
+      <ExternalLink href="https://vite-rails.netlify.app/features">faster development experience</ExternalLink>
+      thanks to
+      <ExternalLink href="https://vite-rails.netlify.app/features">Vite</ExternalLink>.
     </p>
 
     <p
@@ -37,7 +36,7 @@
     <div class="mb-8 flex">
       <inertia-link
         class="btn-indigo"
-        :href="$routes.error_500()"
+        :href="error500Path"
       >
         500 error
       </inertia-link>
@@ -57,11 +56,16 @@
 
 <script>
 import Layout from '@/Layouts/Main.vue'
+import ExternalLink from '@/Shared/ExternalLink.vue'
 import * as timeago from 'timeago.js'
+import DashboardRequests from '@/requests/DashboardRequests'
 
 export default {
   metaInfo: { title: 'Dashboard' },
   layout: Layout,
+  components: {
+    ExternalLink,
+  },
   props: {
     git: {
       type: Object,
@@ -69,6 +73,9 @@ export default {
     },
   },
   computed: {
+    error500Path () {
+      return DashboardRequests.pathFor('exampleException')
+    },
     relativeCommitTime() {
       return timeago.format(this.git.commit_time)
     },

@@ -7,7 +7,7 @@
       />
       <form
         class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden"
-        @submit.prevent="form.post($routes.user_session())"
+        @submit.prevent="login(form)"
       >
         <div class="px-10 py-12">
           <flash-messages />
@@ -68,6 +68,7 @@ import FlashMessages from '@/Shared/FlashMessages.vue'
 import LoadingButton from '@/Shared/LoadingButton.vue'
 import Logo from '@/Shared/Logo.vue'
 import TextInput from '@/Shared/TextInput.vue'
+import SessionsRequests from '@/requests/Users/SessionsRequests'
 
 export default {
   metaInfo: { title: 'Login' },
@@ -88,6 +89,11 @@ export default {
         },
       }),
     }
+  },
+  methods: {
+    login (form) {
+      SessionsRequests.create({ form })
+    },
   },
 }
 </script>

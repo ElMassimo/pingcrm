@@ -3,7 +3,7 @@
     <h1 class="mb-8 font-bold text-3xl">
       <inertia-link
         class="text-indigo-500 hover:text-indigo-800"
-        :href="$routes.contacts()"
+        :href="ContactsRequests.pathFor('list')"
       >
         Contacts
       </inertia-link>
@@ -21,7 +21,7 @@
       <contact-form
         v-model="form"
         :organizations="organizations"
-        @submit="form.put($routes.contact(contact.id))"
+        @submit="ContactsRequests.update({ params: contact, form })"
       >
         <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
           <button
@@ -53,11 +53,16 @@ import ContactForm from './Form.vue'
 import TrashedMessage from '@/Shared/TrashedMessage.vue'
 import _ from 'lodash'
 
+import ContactsRequests from '@/requests/ContactsRequests'
+
 export default {
   metaInfo() {
     return {
       title: `${this.form.contact.first_name} ${this.form.contact.last_name}`,
     }
+  },
+  constants: {
+    ContactsRequests,
   },
   components: {
     LoadingButton,
@@ -86,12 +91,12 @@ export default {
   methods: {
     destroy() {
       if (confirm('Are you sure you want to delete this contact?')) {
-        this.$inertia.delete(this.$routes.contact(this.contact.id))
+        ContactsRequests.destroy(this.contact)
       }
     },
     restore() {
       if (confirm('Are you sure you want to restore this contact?')) {
-        this.$inertia.put(this.$routes.restore_contact(this.contact.id))
+        ContactsRequests.restore(this.contact)
       }
     },
   },

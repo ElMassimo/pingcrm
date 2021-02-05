@@ -8,7 +8,7 @@
           <div class="bg-indigo-900 md:flex-shrink-0 md:w-56 px-6 py-4 flex items-center justify-between md:justify-center">
             <inertia-link
               class="mt-1"
-              :href="$routes.root()"
+              :href="routes.dashboard"
               aria-label="Home"
               role="navigation"
             >
@@ -62,20 +62,20 @@
                 <inertia-link
                   class="block px-6 py-2 hover:bg-indigo-600 hover:text-white"
                   role="navigation"
-                  :href="$routes.edit_user($page.props.auth.user.id)"
+                  :href="routes.profile"
                 >
                   My Profile
                 </inertia-link>
                 <inertia-link
                   class="block px-6 py-2 hover:bg-indigo-600 hover:text-white"
                   role="navigation"
-                  :href="$routes.users()"
+                  :href="routes.users"
                 >
                   Manage Users
                 </inertia-link>
                 <inertia-link
                   class="block w-full text-left px-6 py-2 hover:bg-indigo-600 hover:text-white"
-                  :href="$routes.destroy_user_session()"
+                  :href="routes.signOut"
                   method="delete"
                   as="button"
                 >
@@ -108,6 +108,10 @@ import Icon from '@/Shared/Icon.vue'
 import Logo from '@/Shared/Logo.vue'
 import MainMenu from '@/Shared/MainMenu.vue'
 
+import DashboardRequests from '@/requests/DashboardRequests'
+import UsersRequests from '@/requests/UsersRequests'
+import SessionsRequests from '@/requests/Users/SessionsRequests'
+
 export default {
   components: {
     MinimalLayout,
@@ -116,6 +120,16 @@ export default {
     Icon,
     Logo,
     MainMenu,
+  },
+  computed: {
+    routes () {
+      return {
+        dashboard: DashboardRequests.pathFor('list'),
+        profile: UsersRequests.pathFor('edit', this.$page.props.auth.user),
+        users: UsersRequests.pathFor('list'),
+        signOut: SessionsRequests.pathFor('destroy'),
+      }
+    },
   },
 }
 </script>

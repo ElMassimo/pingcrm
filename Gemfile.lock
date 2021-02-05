@@ -108,8 +108,8 @@ GEM
       rails (>= 5)
     jbuilder (2.11.1)
       activesupport (>= 5.0.0)
-    js-routes (1.4.14)
-      railties (>= 4)
+    js_from_routes (1.0.1)
+      railties
     listen (3.4.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -267,7 +267,7 @@ DEPENDENCIES
   image_processing (~> 1.10)
   inertia_rails (>= 1.2.2)
   jbuilder (~> 2.7)
-  js-routes
+  js_from_routes
   listen (~> 3.3)
   oj
   pagy

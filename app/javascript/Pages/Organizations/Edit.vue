@@ -3,7 +3,7 @@
     <h1 class="mb-8 font-bold text-3xl">
       <inertia-link
         class="text-indigo-500 hover:text-indigo-800"
-        :href="$routes.organizations()"
+        :href="OrganizationsRequests.pathFor('list')"
       >
         Organizations
       </inertia-link>
@@ -20,7 +20,7 @@
     <div class="bg-white rounded shadow overflow-hidden max-w-3xl">
       <organization-form
         v-model="form"
-        @submit="form.put($routes.organization(organization.id))"
+        @submit="OrganizationsRequests.update({ params: organization, form })"
       >
         <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
           <button
@@ -69,7 +69,7 @@
           <td class="border-t">
             <inertia-link
               class="px-6 py-4 flex items-center focus:text-indigo-500"
-              :href="$routes.edit_contact(contact.id)"
+              :href="pathToEditContact(contact)"
             >
               {{ contact.name }}
               <icon
@@ -82,7 +82,7 @@
           <td class="border-t">
             <inertia-link
               class="px-6 py-4 flex items-center"
-              :href="$routes.edit_contact(contact.id)"
+              :href="pathToEditContact(contact)"
               tabindex="-1"
             >
               {{ contact.city }}
@@ -91,7 +91,7 @@
           <td class="border-t">
             <inertia-link
               class="px-6 py-4 flex items-center"
-              :href="$routes.edit_contact(contact.id)"
+              :href="pathToEditContact(contact)"
               tabindex="-1"
             >
               {{ contact.phone }}
@@ -100,7 +100,7 @@
           <td class="border-t w-px">
             <inertia-link
               class="px-4 flex items-center"
-              :href="$routes.edit_contact(contact.id)"
+              :href="pathToEditContact(contact)"
               tabindex="-1"
             >
               <icon
@@ -131,9 +131,15 @@ import OrganizationForm from './Form.vue'
 import TrashedMessage from '@/Shared/TrashedMessage.vue'
 import _ from 'lodash'
 
+import ContactsRequests from '@/requests/ContactsRequests'
+import OrganizationsRequests from '@/requests/OrganizationsRequests'
+
 export default {
   metaInfo() {
     return { title: this.form.organization.name }
+  },
+  constants: {
+    OrganizationsRequests,
   },
   components: {
     Icon,
@@ -161,16 +167,17 @@ export default {
     }
   },
   methods: {
+    pathToEditContact (contact) {
+      return ContactsRequests.pathFor('edit', contact)
+    },
     destroy() {
       if (confirm('Are you sure you want to delete this organization?')) {
-        this.$inertia.delete(this.$routes.organization(this.organization.id))
+        OrganizationsRequests.destroy(this.organization)
       }
     },
     restore() {
       if (confirm('Are you sure you want to restore this organization?')) {
-        this.$inertia.put(
-          this.$routes.restore_organization(this.organization.id),
-        )
+        OrganizationsRequests.restore(this.organization)
       }
     },
   },

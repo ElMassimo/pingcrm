@@ -54,8 +54,8 @@ group :development do
   # Makes spring watch files using the listen gem. (https://github.com/jonleighton/spring-watcher-listen)
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  # Brings Rails named routes to javascript (http://github.com/railsware/js-routes)
-  gem 'js-routes', require: false
+  # Brings Rails named routes to modern javascript (https://github.com/elmassimo/js_from_routes)
+  gem 'js_from_routes'
 end
 
 group :test do
