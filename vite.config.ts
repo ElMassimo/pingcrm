@@ -1,7 +1,7 @@
 import { resolve, join } from 'path'
 import { defineConfig } from 'vite'
 
-import { createVuePlugin as Vue2Plugin } from 'vite-plugin-vue2'
+import vue from '@vitejs/plugin-vue'
 import RubyPlugin, { projectRoot } from 'vite-plugin-ruby'
 
 export default defineConfig({
@@ -10,6 +10,6 @@ export default defineConfig({
   },
   plugins: [
     RubyPlugin(),
-    Vue2Plugin(),
+    vue(),
   ],
 })

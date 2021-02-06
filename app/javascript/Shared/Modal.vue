@@ -124,9 +124,10 @@ export default {
       }
     }
     document.addEventListener('keydown', onEscape)
-    this.$once('hook:destroyed', () => {
-      document.removeEventListener('keydown', onEscape)
-    })
+    // Vue 3 doesn't have $once
+    // this.$once('hook:destroyed', () => {
+    //   document.removeEventListener('keydown', onEscape)
+    // })
   },
   methods: {
     show() {
