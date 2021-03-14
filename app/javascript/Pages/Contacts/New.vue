@@ -3,7 +3,7 @@
     <h1 class="mb-8 font-bold text-3xl">
       <inertia-link
         class="text-indigo-400 hover:text-indigo-600"
-        :href="ContactsApi.pathFor('list')"
+        :href="ContactsApi.list.path()"
       >
         Contacts
       </inertia-link>

@@ -187,7 +187,7 @@ export default {
   },
   methods: {
     pathToEdit (organization) {
-      return OrganizationsApi.pathFor('edit', organization)
+      return OrganizationsApi.edit.path(organization)
     },
     reset() {
       this.form = mapValues(this.form, () => null)

@@ -47,7 +47,7 @@
       <inertia-link
         v-if="can.create_user"
         class="btn-indigo"
-        :href="UsersApi.pathFor('new')"
+        :href="UsersApi.new.path()"
       >
         <span>Create</span>
         <span class="hidden md:inline">User</span>
@@ -204,7 +204,7 @@ export default {
   },
   methods: {
     pathToEdit (user) {
-      return UsersApi.pathFor('edit', user)
+      return UsersApi.edit.path(user)
     },
     reset() {
       this.form = mapValues(this.form, () => null)

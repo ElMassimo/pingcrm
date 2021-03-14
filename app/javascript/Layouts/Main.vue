@@ -124,10 +124,10 @@ export default {
   computed: {
     routes () {
       return {
-        dashboard: DashboardApi.pathFor('list'),
-        profile: UsersApi.pathFor('edit', this.$page.props.auth.user),
-        users: UsersApi.pathFor('list'),
-        signOut: SessionsApi.pathFor('destroy'),
+        dashboard: DashboardApi.list.path(),
+        profile: UsersApi.edit.path(this.$page.props.auth.user),
+        users: UsersApi.list.path(),
+        signOut: SessionsApi.destroy.path(),
       }
     },
   },

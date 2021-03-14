@@ -29,7 +29,7 @@
       </search-filter>
       <inertia-link
         class="btn-indigo"
-        :href="ContactsApi.pathFor('new')"
+        :href="ContactsApi.new.path()"
       >
         <span>Create</span>
         <span class="hidden md:inline">Contact</span>
@@ -192,7 +192,7 @@ export default {
   },
   methods: {
     pathToEdit (contact) {
-      return ContactsApi.pathFor('edit', contact)
+      return ContactsApi.edit.path(contact)
     },
     reset() {
       this.form = mapValues(this.form, () => null)

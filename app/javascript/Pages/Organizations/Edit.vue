@@ -3,7 +3,7 @@
     <h1 class="mb-8 font-bold text-3xl">
       <inertia-link
         class="text-indigo-500 hover:text-indigo-800"
-        :href="OrganizationsApi.pathFor('list')"
+        :href="OrganizationsApi.list.path()"
       >
         Organizations
       </inertia-link>
@@ -168,7 +168,7 @@ export default {
   },
   methods: {
     pathToEditContact (contact) {
-      return ContactsApi.pathFor('edit', contact)
+      return ContactsApi.edit.path(contact)
     },
     destroy() {
       if (confirm('Are you sure you want to delete this organization?')) {

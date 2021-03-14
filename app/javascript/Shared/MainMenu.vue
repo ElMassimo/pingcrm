@@ -86,10 +86,10 @@ export default {
   computed: {
     routes () {
       return {
-        root: DashboardApi.pathFor('list'),
-        organizations: OrganizationsApi.pathFor('list'),
-        contacts: ContactsApi.pathFor('list'),
-        reports: ReportsApi.pathFor('list'),
+        root: DashboardApi.list.path(),
+        organizations: OrganizationsApi.list.path(),
+        contacts: ContactsApi.list.path(),
+        reports: ReportsApi.list.path(),
       }
     },
   },

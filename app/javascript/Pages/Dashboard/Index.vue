@@ -84,7 +84,7 @@ export default {
   },
   computed: {
     error500Path () {
-      return DashboardApi.pathFor('exampleException')
+      return DashboardApi.exampleException.path()
     },
     relativeCommitTime() {
       return timeago.format(this.git.commit_time)

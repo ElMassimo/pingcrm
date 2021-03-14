@@ -4,7 +4,7 @@
       <h1 class="font-bold text-3xl">
         <inertia-link
           class="text-indigo-500 hover:text-indigo-600"
-          :href="UsersApi.pathFor('list')"
+          :href="UsersApi.list.path()"
         >
           Users
         </inertia-link>
