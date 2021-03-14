@@ -24,6 +24,9 @@ import { InertiaProgress as progress } from '@inertiajs/progress'
 Vue.use(plugin)
 progress.init()
 
+import api from '@/api/index'
+Vue.prototype.$api = api
+
 const el = document.getElementById('app')
 
 const pages = import.meta.glob('../Pages/**/*.vue')

@@ -131,7 +131,6 @@ import OrganizationForm from './Form.vue'
 import TrashedMessage from '@/Shared/TrashedMessage.vue'
 import _ from 'lodash'
 
-import ContactsApi from '@/api/ContactsApi'
 import OrganizationsApi from '@/api/OrganizationsApi'
 
 export default {
@@ -168,7 +167,7 @@ export default {
   },
   methods: {
     pathToEditContact (contact) {
-      return ContactsApi.edit.path(contact)
+      return this.$api.contacts.edit.path(contact)
     },
     destroy() {
       if (confirm('Are you sure you want to delete this organization?')) {

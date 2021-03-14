@@ -108,10 +108,6 @@ import Icon from '@/Shared/Icon.vue'
 import Logo from '@/Shared/Logo.vue'
 import MainMenu from '@/Shared/MainMenu.vue'
 
-import DashboardApi from '@/api/DashboardApi'
-import UsersApi from '@/api/UsersApi'
-import SessionsApi from '@/api/Users/SessionsApi'
-
 export default {
   components: {
     MinimalLayout,
@@ -124,10 +120,10 @@ export default {
   computed: {
     routes () {
       return {
-        dashboard: DashboardApi.list.path(),
-        profile: UsersApi.edit.path(this.$page.props.auth.user),
-        users: UsersApi.list.path(),
-        signOut: SessionsApi.destroy.path(),
+        dashboard: this.$api.dashboard.list.path(),
+        profile: this.$api.users.edit.path(this.$page.props.auth.user),
+        users: this.$api.users.list.path(),
+        signOut: this.$api.usersSessions.destroy.path(),
       }
     },
   },
