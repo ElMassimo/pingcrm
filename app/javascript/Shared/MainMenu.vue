@@ -74,10 +74,10 @@
 <script>
 import Icon from '@/Shared/Icon.vue'
 
-import ContactsRequests from '@/requests/ContactsRequests'
-import DashboardRequests from '@/requests/DashboardRequests'
-import OrganizationsRequests from '@/requests/OrganizationsRequests'
-import ReportsRequests from '@/requests/ReportsRequests'
+import ContactsApi from '@/api/ContactsApi'
+import DashboardApi from '@/api/DashboardApi'
+import OrganizationsApi from '@/api/OrganizationsApi'
+import ReportsApi from '@/api/ReportsApi'
 
 export default {
   components: {
@@ -86,10 +86,10 @@ export default {
   computed: {
     routes () {
       return {
-        root: DashboardRequests.pathFor('list'),
-        organizations: OrganizationsRequests.pathFor('list'),
-        contacts: ContactsRequests.pathFor('list'),
-        reports: ReportsRequests.pathFor('list'),
+        root: DashboardApi.pathFor('list'),
+        organizations: OrganizationsApi.pathFor('list'),
+        contacts: ContactsApi.pathFor('list'),
+        reports: ReportsApi.pathFor('list'),
       }
     },
   },

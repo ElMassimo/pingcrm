@@ -47,7 +47,7 @@
       <inertia-link
         v-if="can.create_user"
         class="btn-indigo"
-        :href="UsersRequests.pathFor('new')"
+        :href="UsersApi.pathFor('new')"
       >
         <span>Create</span>
         <span class="hidden md:inline">User</span>
@@ -152,12 +152,12 @@ import mapValues from 'lodash/mapValues'
 import pickBy from 'lodash/pickBy'
 import SearchFilter from '@/Shared/SearchFilter.vue'
 import throttle from 'lodash/throttle'
-import UsersRequests from '@/requests/UsersRequests'
+import UsersApi from '@/api/UsersApi'
 
 export default {
   metaInfo: { title: 'Users' },
   constants: {
-    UsersRequests,
+    UsersApi,
   },
   components: {
     Icon,
@@ -191,7 +191,7 @@ export default {
     form: {
       handler: throttle(function() {
         const query = pickBy(this.form)
-        UsersRequests.list({
+        UsersApi.list({
           query: Object.keys(query).length ? query : { remember: 'forget' },
           preserveState: true,
           preserveScroll: true,
@@ -204,7 +204,7 @@ export default {
   },
   methods: {
     pathToEdit (user) {
-      return UsersRequests.pathFor('edit', user)
+      return UsersApi.pathFor('edit', user)
     },
     reset() {
       this.form = mapValues(this.form, () => null)

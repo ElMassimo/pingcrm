@@ -3,7 +3,7 @@
     <h1 class="mb-8 font-bold text-3xl">
       <inertia-link
         class="text-indigo-500 hover:text-indigo-800"
-        :href="OrganizationsRequests.pathFor('list')"
+        :href="OrganizationsApi.pathFor('list')"
       >
         Organizations
       </inertia-link>
@@ -20,7 +20,7 @@
     <div class="bg-white rounded shadow overflow-hidden max-w-3xl">
       <organization-form
         v-model="form"
-        @submit="OrganizationsRequests.update({ params: organization, form })"
+        @submit="OrganizationsApi.update({ params: organization, form })"
       >
         <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
           <button
@@ -131,15 +131,15 @@ import OrganizationForm from './Form.vue'
 import TrashedMessage from '@/Shared/TrashedMessage.vue'
 import _ from 'lodash'
 
-import ContactsRequests from '@/requests/ContactsRequests'
-import OrganizationsRequests from '@/requests/OrganizationsRequests'
+import ContactsApi from '@/api/ContactsApi'
+import OrganizationsApi from '@/api/OrganizationsApi'
 
 export default {
   metaInfo() {
     return { title: this.form.organization.name }
   },
   constants: {
-    OrganizationsRequests,
+    OrganizationsApi,
   },
   components: {
     Icon,
@@ -168,16 +168,16 @@ export default {
   },
   methods: {
     pathToEditContact (contact) {
-      return ContactsRequests.pathFor('edit', contact)
+      return ContactsApi.pathFor('edit', contact)
     },
     destroy() {
       if (confirm('Are you sure you want to delete this organization?')) {
-        OrganizationsRequests.destroy(this.organization)
+        OrganizationsApi.destroy(this.organization)
       }
     },
     restore() {
       if (confirm('Are you sure you want to restore this organization?')) {
-        OrganizationsRequests.restore(this.organization)
+        OrganizationsApi.restore(this.organization)
       }
     },
   },

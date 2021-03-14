@@ -19,7 +19,7 @@
 <script>
 import LoadingButton from '@/Shared/LoadingButton.vue'
 import OrganizationForm from './Form.vue'
-import OrganizationsRequests from '@/requests/OrganizationsRequests'
+import OrganizationsApi from '@/api/OrganizationsApi'
 
 export default {
   components: {
@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     submit(form) {
-      OrganizationsRequests.create({ form,
+      OrganizationsApi.create({ form,
         onSuccess: () => {
           this.$emit('success')
           form.reset('organization')

@@ -5,17 +5,27 @@
     </h1>
     <p class="mb-8 leading-normal">
       Hey there! Welcome to Ping CRM, a demo app designed to help illustrate how
-      <ExternalLink href="https://inertiajs.com">Inertia.js</ExternalLink>
+      <ExternalLink href="https://inertiajs.com">
+        Inertia.js
+      </ExternalLink>
       works with
-      <ExternalLink href="https://rubyonrails.org/">Ruby on Rails</ExternalLink>.
+      <ExternalLink href="https://rubyonrails.org/">
+        Ruby on Rails
+      </ExternalLink>.
     </p>
     <p class="mb-8 leading-normal">
       This demo is running on
-      <ExternalLink href="https://vite-rails.netlify.app/">Vite ⚡️ Rails</ExternalLink>
+      <ExternalLink href="https://vite-rails.netlify.app/">
+        Vite ⚡️ Rails
+      </ExternalLink>
       instead of Webpacker, which provides a
-      <ExternalLink href="https://vite-rails.netlify.app/features">faster development experience</ExternalLink>
+      <ExternalLink href="https://vite-rails.netlify.app/features">
+        faster development experience
+      </ExternalLink>
       thanks to
-      <ExternalLink href="https://vite-rails.netlify.app/features">Vite</ExternalLink>.
+      <ExternalLink href="https://vite-rails.netlify.app/features">
+        Vite
+      </ExternalLink>.
     </p>
 
     <p
@@ -58,14 +68,14 @@
 import Layout from '@/Layouts/Main.vue'
 import ExternalLink from '@/Shared/ExternalLink.vue'
 import * as timeago from 'timeago.js'
-import DashboardRequests from '@/requests/DashboardRequests'
+import DashboardApi from '@/api/DashboardApi'
 
 export default {
   metaInfo: { title: 'Dashboard' },
-  layout: Layout,
   components: {
     ExternalLink,
   },
+  layout: Layout,
   props: {
     git: {
       type: Object,
@@ -74,7 +84,7 @@ export default {
   },
   computed: {
     error500Path () {
-      return DashboardRequests.pathFor('exampleException')
+      return DashboardApi.pathFor('exampleException')
     },
     relativeCommitTime() {
       return timeago.format(this.git.commit_time)

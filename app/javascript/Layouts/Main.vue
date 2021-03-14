@@ -108,9 +108,9 @@ import Icon from '@/Shared/Icon.vue'
 import Logo from '@/Shared/Logo.vue'
 import MainMenu from '@/Shared/MainMenu.vue'
 
-import DashboardRequests from '@/requests/DashboardRequests'
-import UsersRequests from '@/requests/UsersRequests'
-import SessionsRequests from '@/requests/Users/SessionsRequests'
+import DashboardApi from '@/api/DashboardApi'
+import UsersApi from '@/api/UsersApi'
+import SessionsApi from '@/api/Users/SessionsApi'
 
 export default {
   components: {
@@ -124,10 +124,10 @@ export default {
   computed: {
     routes () {
       return {
-        dashboard: DashboardRequests.pathFor('list'),
-        profile: UsersRequests.pathFor('edit', this.$page.props.auth.user),
-        users: UsersRequests.pathFor('list'),
-        signOut: SessionsRequests.pathFor('destroy'),
+        dashboard: DashboardApi.pathFor('list'),
+        profile: UsersApi.pathFor('edit', this.$page.props.auth.user),
+        users: UsersApi.pathFor('list'),
+        signOut: SessionsApi.pathFor('destroy'),
       }
     },
   },

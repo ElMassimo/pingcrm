@@ -3,7 +3,7 @@
     <h1 class="mb-8 font-bold text-3xl">
       <inertia-link
         class="text-indigo-500 hover:text-indigo-800"
-        :href="ContactsRequests.pathFor('list')"
+        :href="ContactsApi.pathFor('list')"
       >
         Contacts
       </inertia-link>
@@ -21,7 +21,7 @@
       <contact-form
         v-model="form"
         :organizations="organizations"
-        @submit="ContactsRequests.update({ params: contact, form })"
+        @submit="ContactsApi.update({ params: contact, form })"
       >
         <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
           <button
@@ -53,7 +53,7 @@ import ContactForm from './Form.vue'
 import TrashedMessage from '@/Shared/TrashedMessage.vue'
 import _ from 'lodash'
 
-import ContactsRequests from '@/requests/ContactsRequests'
+import ContactsApi from '@/api/ContactsApi'
 
 export default {
   metaInfo() {
@@ -62,7 +62,7 @@ export default {
     }
   },
   constants: {
-    ContactsRequests,
+    ContactsApi,
   },
   components: {
     LoadingButton,
@@ -91,12 +91,12 @@ export default {
   methods: {
     destroy() {
       if (confirm('Are you sure you want to delete this contact?')) {
-        ContactsRequests.destroy(this.contact)
+        ContactsApi.destroy(this.contact)
       }
     },
     restore() {
       if (confirm('Are you sure you want to restore this contact?')) {
-        ContactsRequests.restore(this.contact)
+        ContactsApi.restore(this.contact)
       }
     },
   },

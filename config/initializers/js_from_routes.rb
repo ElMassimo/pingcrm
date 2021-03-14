@@ -1,5 +1,6 @@
 if Rails.env.development?
   JsFromRoutes.config do |config|
-    config.template_path = Rails.root.join('app', 'views', 'js_from_routes.js.erb')
+    config.client_library = '@js-from-routes/inertia'
+    config.file_suffix = 'Api.ts'
   end
 end

@@ -29,7 +29,7 @@
       </search-filter>
       <inertia-link
         class="btn-indigo"
-        :href="ContactsRequests.pathFor('new')"
+        :href="ContactsApi.pathFor('new')"
       >
         <span>Create</span>
         <span class="hidden md:inline">Contact</span>
@@ -146,11 +146,11 @@ import pickBy from 'lodash/pickBy'
 import SearchFilter from '@/Shared/SearchFilter.vue'
 import throttle from 'lodash/throttle'
 
-import ContactsRequests from '@/requests/ContactsRequests'
+import ContactsApi from '@/api/ContactsApi'
 
 export default {
   metaInfo: { title: 'Contacts' },
-  constants: { ContactsRequests },
+  constants: { ContactsApi },
   components: {
     Icon,
     Pagination,
@@ -179,7 +179,7 @@ export default {
     form: {
       handler: throttle(function() {
         const query = pickBy(this.form)
-        ContactsRequests.list({
+        ContactsApi.list({
           query: Object.keys(query).length ? query : { remember: 'forget' },
           preserveState: true,
           preserveScroll: true,
@@ -192,7 +192,7 @@ export default {
   },
   methods: {
     pathToEdit (contact) {
-      return ContactsRequests.pathFor('edit', contact)
+      return ContactsApi.pathFor('edit', contact)
     },
     reset() {
       this.form = mapValues(this.form, () => null)
